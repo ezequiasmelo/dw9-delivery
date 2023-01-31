@@ -23,3 +23,11 @@ samples, guidance on mobile development, and a full API reference.
 
 - [flutter_dotenv](https://pub.dev/packages/flutter_dotenv)
 - [dio](https://pub.dev/packages/dio)
+- [provider](https://pub.dev/packages/provider)
+- [intl](https://pub.dev/packages/intl)
+- [loading_animation_widget](https://pub.dev/packages/loading_animation_widget)
+- [top_snackbar_flutter](https://pub.dev/packages/top_snackbar_flutter)
+- [bloc](https://pub.dev/packages/bloc)
+- [flutter_bloc](https://pub.dev/packages/flutter_bloc)
+- [equatable](https://pub.dev/packages/equatable)
+- [match](https://pub.dev/packages/match)
