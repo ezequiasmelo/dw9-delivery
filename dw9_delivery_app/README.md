@@ -31,3 +31,5 @@ samples, guidance on mobile development, and a full API reference.
 - [flutter_bloc](https://pub.dev/packages/flutter_bloc)
 - [equatable](https://pub.dev/packages/equatable)
 - [match](https://pub.dev/packages/match)
+- [auto_size_text](https://pub.dev/packages/auto_size_text)
+- [shared_preferences](https://pub.dev/packages/shared_preferences)
