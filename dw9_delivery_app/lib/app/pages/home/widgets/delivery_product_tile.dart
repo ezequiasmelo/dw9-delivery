@@ -69,12 +69,15 @@ class DeliveryProductTile extends StatelessWidget {
                 ],
               ),
             ),
-            FadeInImage.assetNetwork(
-              placeholder: 'assets/images/loading.gif',
-              image: product.image,
-              width: 100,
-              height: 100,
-              fit: BoxFit.contain,
+            ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+              child: FadeInImage.assetNetwork(
+                placeholder: 'assets/images/loading.gif',
+                image: product.image,
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
             )
           ],
         ),
