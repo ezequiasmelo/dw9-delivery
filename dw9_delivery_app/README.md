@@ -37,3 +37,4 @@ samples, guidance on mobile development, and a full API reference.
 - [shared_preferences](https://pub.dev/packages/shared_preferences)
 - [validatorless](https://pub.dev/packages/validatorless)
 - [flutter_awesome_select](https://pub.dev/packages/flutter_awesome_select)
+- [mask_text_input_formatter](https://pub.dev/packages/mask_text_input_formatter)

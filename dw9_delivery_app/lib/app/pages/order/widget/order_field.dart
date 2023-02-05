@@ -1,11 +1,13 @@
 import 'package:dw9_delivery_app/app/core/ui/styles/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class OrderField extends StatelessWidget {
   final String title;
   final TextEditingController controller;
-  final FormFieldValidator validator;
+  final FormFieldValidator<String> validator;
   final String hintText;
+  final List<TextInputFormatter>? inputFormatters;
 
   const OrderField({
     super.key,
@@ -13,6 +15,7 @@ class OrderField extends StatelessWidget {
     required this.controller,
     required this.validator,
     required this.hintText,
+    this.inputFormatters,
   });
 
   @override
@@ -48,6 +51,7 @@ class OrderField extends StatelessWidget {
               enabledBorder: defaultBorder,
               focusedBorder: defaultBorder,
             ),
+            inputFormatters: inputFormatters,
           ),
         ],
       ),

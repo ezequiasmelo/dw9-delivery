@@ -11,6 +11,7 @@ import 'package:dw9_delivery_app/app/pages/order/widget/order_product_tile.dart'
 import 'package:dw9_delivery_app/app/pages/order/widget/payment_types_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:validatorless/validatorless.dart';
 
 import '../../core/ui/base_state/base_state.dart';
@@ -28,6 +29,17 @@ class _OrderPageState extends BaseState<OrderPage, OrderController> {
   final documentEC = TextEditingController();
   int? paymentTypeId;
   final paymentTypeValid = ValueNotifier<bool>(true);
+  late final MaskTextInputFormatter maskFormatter;
+
+  @override
+  void initState() {
+    maskFormatter = MaskTextInputFormatter(
+      mask: '###.###.###-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy,
+    );
+    super.initState();
+  }
 
   @override
   void onReady() {
@@ -207,8 +219,14 @@ class _OrderPageState extends BaseState<OrderPage, OrderController> {
                       OrderField(
                         title: 'CPF',
                         controller: documentEC,
-                        validator: Validatorless.required('CPF obrigatório'),
+                        validator: (_) {
+                          if (!maskFormatter.isFill()) {
+                            return 'CPF inválido';
+                          }
+                          return null;
+                        },
                         hintText: 'Digite o CPF',
+                        inputFormatters: [maskFormatter],
                       ),
                       const SizedBox(
                         height: 20,
