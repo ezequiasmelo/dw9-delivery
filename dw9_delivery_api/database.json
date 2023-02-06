@@ -183,6 +183,24 @@
             "complement_address": "compleme",
             "CPF": "849.498.494-98",
             "payment_method_id": 1
+        },
+        {
+            "id": 6,
+            "products": [
+                {
+                    "id": 2,
+                    "amount": 1,
+                    "total_price": 15.0
+                }
+            ],
+            "user_id": "1",
+            "cep": "01025-020",
+            "neighborhood_address": "Centro",
+            "address": "Avenida do Estado",
+            "number_address": "1",
+            "complement_address": null,
+            "CPF": "046.564.546-45",
+            "payment_method_id": 1
         }
     ]
 }
