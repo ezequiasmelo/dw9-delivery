@@ -42,11 +42,11 @@ class OrderRepositoryImpl implements OrderRepository {
             )
             .toList(),
         'user_id': '#userAuthRef',
-        'cep': order.cep,
-        'neighborhood_address': order.neighborhoodAddress,
-        'address': order.address,
-        'number_address': order.numberAddress,
-        'complement_address': order.complementAddress,
+        'cep': order.address.cep,
+        'neighborhood_address': order.address.neighborhoodAddress,
+        'address': order.address.address,
+        'number_address': order.address.numberAddress,
+        'complement_address': order.address.complementAddress,
         'CPF': order.document,
         'payment_method_id': order.paymentMethodId,
       });

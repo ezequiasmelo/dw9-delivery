@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:match/match.dart';
 
 import 'package:dw9_delivery_app/app/dto/order_product_dto.dart';
+import 'package:dw9_delivery_app/app/models/address_model.dart';
 import 'package:dw9_delivery_app/app/models/payment_type_model.dart';
 
 part 'order_state.g.dart';
@@ -16,18 +17,21 @@ enum OrderStatus {
   confirmRemoveProduct,
   emptyBag,
   success,
+  successCEP,
 }
 
 class OrderState extends Equatable {
   final OrderStatus status;
   final List<OrderProductDto> orderProducts;
   final List<PaymentTypeModel> paymentTypes;
+  final AddressModel? address;
   final String? errorMessage;
 
   const OrderState({
     required this.status,
     required this.orderProducts,
     required this.paymentTypes,
+    this.address,
     this.errorMessage,
   });
 
@@ -35,6 +39,7 @@ class OrderState extends Equatable {
       : status = OrderStatus.initial,
         orderProducts = const [],
         paymentTypes = const [],
+        address = null,
         errorMessage = null;
 
   double get totalOrder => orderProducts.fold(
@@ -42,18 +47,20 @@ class OrderState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [status, orderProducts, paymentTypes, errorMessage];
+      [status, orderProducts, paymentTypes, address, errorMessage];
 
   OrderState copyWith({
     OrderStatus? status,
     List<OrderProductDto>? orderProducts,
     List<PaymentTypeModel>? paymentTypes,
+    AddressModel? address,
     String? errorMessage,
   }) {
     return OrderState(
       status: status ?? this.status,
       orderProducts: orderProducts ?? this.orderProducts,
       paymentTypes: paymentTypes ?? this.paymentTypes,
+      address: address ?? this.address,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }

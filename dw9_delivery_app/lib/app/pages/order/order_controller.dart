@@ -1,15 +1,22 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+
 import 'package:dw9_delivery_app/app/dto/order_dto.dart';
 import 'package:dw9_delivery_app/app/dto/order_product_dto.dart';
+import 'package:dw9_delivery_app/app/models/address_model.dart';
 import 'package:dw9_delivery_app/app/pages/order/order_state.dart';
+import 'package:dw9_delivery_app/app/repositories/cep/cep_repository.dart';
 import 'package:dw9_delivery_app/app/repositories/order/order_repository.dart';
 
 class OrderController extends Cubit<OrderState> {
   final OrderRepository _orderRepository;
+  final CepRepository _cepRepository;
 
-  OrderController(this._orderRepository) : super(const OrderState.initial());
+  OrderController(
+    this._orderRepository,
+    this._cepRepository,
+  ) : super(const OrderState.initial());
 
   void load(List<OrderProductDto> products) async {
     try {
@@ -78,11 +85,7 @@ class OrderController extends Cubit<OrderState> {
   }
 
   void saveOrder({
-    required String cep,
-    required String neighborhoodAddress,
-    required String address,
-    required String numberAddress,
-    String? complementAddress,
+    required AddressModel address,
     required String document,
     required int paymentMethodId,
   }) async {
@@ -90,15 +93,22 @@ class OrderController extends Cubit<OrderState> {
     await _orderRepository.saveOrder(
       OrderDto(
         products: state.orderProducts,
-        cep: cep,
-        neighborhoodAddress: neighborhoodAddress,
         address: address,
-        numberAddress: numberAddress,
-        complementAddress: complementAddress,
         document: document,
         paymentMethodId: paymentMethodId,
       ),
     );
     emit(state.copyWith(status: OrderStatus.success));
+  }
+
+  Future<void> findCep(String cep) async {
+    try {
+      emit(state.copyWith(status: OrderStatus.loading));
+      final address = await _cepRepository.getCep(cep);
+      emit(state.copyWith(status: OrderStatus.successCEP, address: address));
+    } catch (e) {
+      emit(state.copyWith(
+          status: OrderStatus.error, errorMessage: 'Erro ao buscar CEP'));
+    }
   }
 }

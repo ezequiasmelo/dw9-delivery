@@ -1,8 +1,10 @@
 import 'package:dw9_delivery_app/app/core/extensions/formatter_extension.dart';
+import 'package:dw9_delivery_app/app/core/ui/styles/colors_app.dart';
 import 'package:dw9_delivery_app/app/core/ui/styles/text_styles.dart';
 import 'package:dw9_delivery_app/app/core/ui/widgets/delivery_appbar.dart';
 import 'package:dw9_delivery_app/app/core/ui/widgets/delivery_button.dart';
 import 'package:dw9_delivery_app/app/dto/order_product_dto.dart';
+import 'package:dw9_delivery_app/app/models/address_model.dart';
 import 'package:dw9_delivery_app/app/models/payment_type_model.dart';
 import 'package:dw9_delivery_app/app/pages/order/order_state.dart';
 import 'package:dw9_delivery_app/app/pages/order/order_controller.dart';
@@ -44,7 +46,7 @@ class _OrderPageState extends BaseState<OrderPage, OrderController> {
       type: MaskAutoCompletionType.lazy,
     );
     maskFormatterCEP = MaskTextInputFormatter(
-      mask: '##.###-###',
+      mask: '#####-###',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy,
     );
@@ -123,6 +125,15 @@ class _OrderPageState extends BaseState<OrderPage, OrderController> {
               '/order/completed',
               result: <OrderProductDto>[],
             );
+          },
+          successCEP: () {
+            hideLoader();
+            if (state.address != null) {
+              neighborhoodAddressEC.text = state.address!.neighborhoodAddress;
+              addressEC.text = state.address!.address;
+              numberAddressEC.text = state.address!.numberAddress;
+              complementAddressEC.text = state.address!.complementAddress!;
+            }
           },
         );
       },
@@ -243,6 +254,26 @@ class _OrderPageState extends BaseState<OrderPage, OrderController> {
                               inputFormatters: [maskFormatterCEP],
                             ),
                           ),
+                          SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                await controller.findCep(cepEC.text);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: const CircleBorder(),
+                                padding: const EdgeInsets.all(8.0),
+                              ),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.search,
+                                  color: Colors.white,
+                                  size: 26,
+                                ),
+                              ),
+                            ),
+                          ),
                           Expanded(
                             child: OrderField(
                               title: 'Bairro',
@@ -347,11 +378,14 @@ class _OrderPageState extends BaseState<OrderPage, OrderController> {
 
                             if (valid && paymentTypeSelected) {
                               controller.saveOrder(
-                                cep: cepEC.text,
-                                neighborhoodAddress: neighborhoodAddressEC.text,
-                                address: addressEC.text,
-                                numberAddress: numberAddressEC.text,
-                                complementAddress: complementAddressEC.text,
+                                address: AddressModel(
+                                  cep: cepEC.text,
+                                  neighborhoodAddress:
+                                      neighborhoodAddressEC.text,
+                                  address: addressEC.text,
+                                  numberAddress: numberAddressEC.text,
+                                  complementAddress: complementAddressEC.text,
+                                ),
                                 document: documentEC.text,
                                 paymentMethodId: paymentTypeId!,
                               );

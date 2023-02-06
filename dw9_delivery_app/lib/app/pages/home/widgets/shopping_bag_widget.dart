@@ -28,7 +28,9 @@ class ShoppingBagWidget extends StatelessWidget {
     }
 
     final updateBag = await navigator.pushNamed('/order', arguments: bag);
-    controller.updateBag(updateBag as List<OrderProductDto>);
+    if (updateBag != null) {
+      controller.updateBag(updateBag as List<OrderProductDto>);
+    }
   }
 
   @override
@@ -55,35 +57,34 @@ class ShoppingBagWidget extends StatelessWidget {
         ),
       ),
       child: ElevatedButton(
-          onPressed: () {
-            _goOrder(context);
-          },
-          child: Stack(
-            children: [
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Icon(
-                  Icons.shopping_cart_outlined,
-                ),
+        onPressed: () {
+          _goOrder(context);
+        },
+        child: Stack(
+          children: [
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Icon(
+                Icons.shopping_cart_outlined,
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Ver sacola',
-                  style:
-                      context.textStyles.textExtraBold.copyWith(fontSize: 14),
-                ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                'Ver sacola',
+                style: context.textStyles.textExtraBold.copyWith(fontSize: 14),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  totalBag,
-                  style:
-                      context.textStyles.textExtraBold.copyWith(fontSize: 11),
-                ),
-              )
-            ],
-          )),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                totalBag,
+                style: context.textStyles.textExtraBold.copyWith(fontSize: 11),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

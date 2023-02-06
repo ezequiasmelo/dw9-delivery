@@ -15,7 +15,8 @@ extension OrderStatusMatch on OrderStatus {
       required T Function() updateOrder,
       required T Function() confirmRemoveProduct,
       required T Function() emptyBag,
-      required T Function() success}) {
+      required T Function() success,
+      required T Function() successCEP}) {
     final v = this;
     if (v == OrderStatus.initial) {
       return initial();
@@ -49,6 +50,10 @@ extension OrderStatusMatch on OrderStatus {
       return success();
     }
 
+    if (v == OrderStatus.successCEP) {
+      return successCEP();
+    }
+
     throw Exception('OrderStatus.match failed, found no match for: $this');
   }
 
@@ -61,7 +66,8 @@ extension OrderStatusMatch on OrderStatus {
       T Function()? updateOrder,
       T Function()? confirmRemoveProduct,
       T Function()? emptyBag,
-      T Function()? success}) {
+      T Function()? success,
+      T Function()? successCEP}) {
     final v = this;
     if (v == OrderStatus.initial && initial != null) {
       return initial();
@@ -93,6 +99,10 @@ extension OrderStatusMatch on OrderStatus {
 
     if (v == OrderStatus.success && success != null) {
       return success();
+    }
+
+    if (v == OrderStatus.successCEP && successCEP != null) {
+      return successCEP();
     }
 
     return any();

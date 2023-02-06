@@ -1,5 +1,7 @@
 import 'package:dw9_delivery_app/app/pages/order/order_page.dart';
 import 'package:dw9_delivery_app/app/pages/order/order_controller.dart';
+import 'package:dw9_delivery_app/app/repositories/cep/cep_repository.dart';
+import 'package:dw9_delivery_app/app/repositories/cep/cep_repository_impl.dart';
 import 'package:dw9_delivery_app/app/repositories/order/order_repository.dart';
 import 'package:dw9_delivery_app/app/repositories/order/order_repository_impl.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +15,12 @@ class OrderRouter {
           Provider<OrderRepository>(
             create: (context) => OrderRepositoryImpl(dio: context.read()),
           ),
+          Provider<CepRepository>(
+            create: (context) => CepRepositoryImpl(dio: context.read()),
+          ),
           Provider(
-            create: (context) => OrderController(context.read()),
+            create: (context) =>
+                OrderController(context.read(), context.read()),
           )
         ],
         child: const OrderPage(),
