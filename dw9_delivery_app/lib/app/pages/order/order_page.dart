@@ -25,16 +25,26 @@ class OrderPage extends StatefulWidget {
 
 class _OrderPageState extends BaseState<OrderPage, OrderController> {
   final formKey = GlobalKey<FormState>();
+  final cepEC = TextEditingController();
+  final neighborhoodAddressEC = TextEditingController();
   final addressEC = TextEditingController();
+  final numberAddressEC = TextEditingController();
+  final complementAddressEC = TextEditingController();
   final documentEC = TextEditingController();
   int? paymentTypeId;
   final paymentTypeValid = ValueNotifier<bool>(true);
-  late final MaskTextInputFormatter maskFormatter;
+  late final MaskTextInputFormatter maskFormatterCPF;
+  late final MaskTextInputFormatter maskFormatterCEP;
 
   @override
   void initState() {
-    maskFormatter = MaskTextInputFormatter(
+    maskFormatterCPF = MaskTextInputFormatter(
       mask: '###.###.###-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy,
+    );
+    maskFormatterCEP = MaskTextInputFormatter(
+      mask: '##.###-###',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy,
     );
@@ -206,12 +216,76 @@ class _OrderPageState extends BaseState<OrderPage, OrderController> {
                       const SizedBox(
                         height: 10,
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text('Endereço de entrega',
+                              style: context.textStyles.textBold),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OrderField(
+                              title: 'CEP',
+                              controller: cepEC,
+                              validator: (_) {
+                                if (!maskFormatterCEP.isFill()) {
+                                  return 'CEP inválido';
+                                }
+                                return null;
+                              },
+                              hintText: 'Digite o CEP',
+                              inputFormatters: [maskFormatterCEP],
+                            ),
+                          ),
+                          Expanded(
+                            child: OrderField(
+                              title: 'Bairro',
+                              controller: neighborhoodAddressEC,
+                              validator:
+                                  Validatorless.required('Bairro obrigatório'),
+                              hintText: 'Digite o bairro',
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OrderField(
+                              title: 'Endereço',
+                              controller: addressEC,
+                              validator: Validatorless.required(
+                                  'Endereço obrigatório'),
+                              hintText: 'Digite um endereço',
+                            ),
+                          ),
+                          Expanded(
+                            child: OrderField(
+                              title: 'Número',
+                              controller: numberAddressEC,
+                              validator:
+                                  Validatorless.required('Número obrigatório'),
+                              hintText: 'Digite o número',
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       OrderField(
-                        title: 'Endereço de entrega',
-                        controller: addressEC,
-                        validator:
-                            Validatorless.required('Endereço obrigatório'),
-                        hintText: 'Digite um endereço',
+                        title: 'Complemento (opcional)',
+                        controller: complementAddressEC,
+                        hintText: 'Digite o complemento',
                       ),
                       const SizedBox(
                         height: 10,
@@ -220,13 +294,13 @@ class _OrderPageState extends BaseState<OrderPage, OrderController> {
                         title: 'CPF',
                         controller: documentEC,
                         validator: (_) {
-                          if (!maskFormatter.isFill()) {
+                          if (!maskFormatterCPF.isFill()) {
                             return 'CPF inválido';
                           }
                           return null;
                         },
                         hintText: 'Digite o CPF',
-                        inputFormatters: [maskFormatter],
+                        inputFormatters: [maskFormatterCPF],
                       ),
                       const SizedBox(
                         height: 20,
@@ -273,7 +347,11 @@ class _OrderPageState extends BaseState<OrderPage, OrderController> {
 
                             if (valid && paymentTypeSelected) {
                               controller.saveOrder(
+                                cep: cepEC.text,
+                                neighborhoodAddress: neighborhoodAddressEC.text,
                                 address: addressEC.text,
+                                numberAddress: numberAddressEC.text,
+                                complementAddress: complementAddressEC.text,
                                 document: documentEC.text,
                                 paymentMethodId: paymentTypeId!,
                               );

@@ -165,6 +165,24 @@
             "address": "48",
             "CPF": "488.787.878-78",
             "payment_method_id": 1
+        },
+        {
+            "id": 5,
+            "products": [
+                {
+                    "id": 3,
+                    "amount": 1,
+                    "total_price": 23.0
+                }
+            ],
+            "user_id": "1",
+            "cep": "85.909-086",
+            "neighborhood_address": "bairro 1",
+            "address": "rua 1",
+            "number_address": "1",
+            "complement_address": "compleme",
+            "CPF": "849.498.494-98",
+            "payment_method_id": 1
         }
     ]
 }

@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 class OrderField extends StatelessWidget {
   final String title;
   final TextEditingController controller;
-  final FormFieldValidator<String> validator;
+  final FormFieldValidator<String>? validator;
   final String hintText;
   final List<TextInputFormatter>? inputFormatters;
 
@@ -13,7 +13,7 @@ class OrderField extends StatelessWidget {
     super.key,
     required this.title,
     required this.controller,
-    required this.validator,
+    this.validator,
     required this.hintText,
     this.inputFormatters,
   });

@@ -78,7 +78,11 @@ class OrderController extends Cubit<OrderState> {
   }
 
   void saveOrder({
+    required String cep,
+    required String neighborhoodAddress,
     required String address,
+    required String numberAddress,
+    String? complementAddress,
     required String document,
     required int paymentMethodId,
   }) async {
@@ -86,7 +90,11 @@ class OrderController extends Cubit<OrderState> {
     await _orderRepository.saveOrder(
       OrderDto(
         products: state.orderProducts,
+        cep: cep,
+        neighborhoodAddress: neighborhoodAddress,
         address: address,
+        numberAddress: numberAddress,
+        complementAddress: complementAddress,
         document: document,
         paymentMethodId: paymentMethodId,
       ),
