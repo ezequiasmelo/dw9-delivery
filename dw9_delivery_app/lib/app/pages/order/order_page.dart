@@ -1,5 +1,4 @@
 import 'package:dw9_delivery_app/app/core/extensions/formatter_extension.dart';
-import 'package:dw9_delivery_app/app/core/ui/styles/colors_app.dart';
 import 'package:dw9_delivery_app/app/core/ui/styles/text_styles.dart';
 import 'package:dw9_delivery_app/app/core/ui/widgets/delivery_appbar.dart';
 import 'package:dw9_delivery_app/app/core/ui/widgets/delivery_button.dart';

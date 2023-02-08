@@ -20,6 +20,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
   final formKey = GlobalKey<FormState>();
   final emailEC = TextEditingController();
   final passwordEC = TextEditingController();
+  var showPassword = false;
 
   @override
   void dispose() {
@@ -83,15 +84,29 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                       const SizedBox(
                         height: 30,
                       ),
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'Senha',
-                        ),
-                        obscureText: true,
-                        controller: passwordEC,
-                        validator: Validatorless.multiple([
-                          Validatorless.required('Senha obrigatória'),
-                        ]),
+                      StatefulBuilder(
+                        builder: (context, setState) {
+                          return TextFormField(
+                            decoration: InputDecoration(
+                              labelText: 'Senha',
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    showPassword = !showPassword;
+                                  });
+                                },
+                                icon: Icon(showPassword
+                                    ? Icons.lock_open
+                                    : Icons.lock_outline),
+                              ),
+                            ),
+                            obscureText: !showPassword,
+                            controller: passwordEC,
+                            validator: Validatorless.multiple([
+                              Validatorless.required('Senha obrigatória'),
+                            ]),
+                          );
+                        },
                       ),
                       const SizedBox(
                         height: 50,
