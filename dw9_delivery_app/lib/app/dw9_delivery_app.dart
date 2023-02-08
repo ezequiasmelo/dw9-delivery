@@ -1,3 +1,4 @@
+import 'package:dw9_delivery_app/app/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 
 import 'core/global/global_context.dart';
@@ -33,7 +34,8 @@ class Dw9DeliveryApp extends StatelessWidget {
           '/auth/login': (context) => LoginRouter.page,
           '/auth/register': (context) => RegisterRouter.page,
           '/order': (context) => OrderRouter.page,
-          '/order/completed': (context) => const OrderCompletedPage()
+          '/order/completed': (context) => const OrderCompletedPage(),
+          '/profile': (context) => const ProfilePage()
         },
       ),
     );

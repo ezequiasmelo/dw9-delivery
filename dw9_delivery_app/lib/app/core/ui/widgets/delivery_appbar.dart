@@ -12,9 +12,6 @@ class DeliveryAppbar extends AppBar {
               width: 80,
             ),
             actions: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(10.0),
-                child: CircleAvatarCustom(),
-              )
+              const CircleAvatarCustom(),
             ]);
 }
