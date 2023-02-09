@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,11 +21,10 @@ class _CircleAvatarCustomState extends State<CircleAvatarCustom> {
 
   Future<void> verifyIsAuthenticate() async {
     final sp = await SharedPreferences.getInstance();
-    // await sp.remove('accessToken');
-    log(sp.getString('accessToken').toString());
     if (!sp.containsKey('accessToken')) {
-      log('teste');
-      isAuthenticate = false;
+      setState(() {
+        isAuthenticate = false;
+      });
     }
   }
 
@@ -38,7 +35,7 @@ class _CircleAvatarCustomState extends State<CircleAvatarCustom> {
       child: IconButton(
         iconSize: 35,
         onPressed: () {
-          Navigator.of(context).popAndPushNamed('/profile');
+          Navigator.of(context).pushNamed('/profile');
         },
         icon: const Icon(
           Icons.account_circle,
