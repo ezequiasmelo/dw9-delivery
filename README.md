@@ -11,3 +11,16 @@ Onde foi desenvolvido um app de delivery usando o [Bloc](https://pub.dev/package
 - [x] Home (Lista dos produtos)
 - [x] Product Detail (Mostra o produto selecionado na tela Home e permite adicionar no carrinho)
 - [x] Order (Carrinho para conclusão do pedido)
+
+## Screens
+
+<div align="center">
+    <img src="screens/splash.png" width="180"/>
+    <img src="screens/products.png" width="180"/>
+    <img src="screens/product-detail.png" width="180"/>
+    <img src="screens/products-2.png" width="180"/>
+    <img src="screens/order.png" width="180"/>
+    <img src="screens/order-complete.png" width="180"/>
+    <img src="screens/login.png" width="180"/>
+    <img src="screens/login-failure.png" width="180"/>
+</div>
